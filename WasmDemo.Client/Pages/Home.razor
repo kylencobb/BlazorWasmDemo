@@ -1,0 +1,16 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<AuthorizeView Roles="Administrator">
+    <Authorized>
+        <TableSearchSort Items="_tableRows" ColumnNamesOrdered="_tableHeaders" Title="Products Table" />
+    </Authorized>
+    <NotAuthorized>
+        <div class="container pt-3">
+            <p>To see the demo table, please <NavLink href="login">login</NavLink>.</p>
+        </div>
+    </NotAuthorized>
+</AuthorizeView>
+
+

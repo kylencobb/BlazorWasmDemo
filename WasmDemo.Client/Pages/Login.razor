@@ -1,0 +1,33 @@
+﻿@page "/login"
+
+<div class="container-fluid">
+    <div class="col-12 col-sm-6 col-lg-4 mx-auto">
+        <div class="card mt-5">
+            <div class="card-header bg-primary text-white">
+                <h2 class="mb-0 fs-3">Login</h2>
+            </div>
+            <div class="card-body">
+                <EditForm Model="_loginModel" OnValidSubmit="HandleLogin">
+                    <p>As long as a value is provided for Username and Password, you will be automatically authenticated.</p>
+
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <InputText id="username" name="username" class="form-control" @bind-Value="_loginModel.Username" />
+                        <ValidationMessage For="@(() => _loginModel.Username)" />
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <label for="password">Password</label>
+                        <InputText id="password" name="password" type="password" class="form-control" @bind-Value="_loginModel.Password" />
+                        <ValidationMessage For="@(() => _loginModel.Password)" />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+</div>

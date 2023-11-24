@@ -1,0 +1,96 @@
+﻿@page "/admin"
+
+<div class="container pt-3">
+    <p class="d-inline-flex gap-1">
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#form-expand" aria-expanded="false" aria-controls="form-expand">
+            Add Person
+        </button>
+    </p>
+    <div class="collapse" id="form-expand">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h2 class="fs-3">New Person</h2>
+            </div>
+            <div class="card-body">
+                <EditForm Model="_newPerson" OnValidSubmit="HandleSubmit">
+                    <div class="container-fluid">
+
+                        <DataAnnotationsValidator />
+                        <ValidationSummary />
+
+                        <div class="row">
+                            <div class="mb-3 col-6">
+                                <label for="nameInput" class="form-label">Name</label>
+                                <InputText id="nameInput" class="form-control" @bind-Value="_newPerson.Name" />
+                                <ValidationMessage For="@(() => _newPerson.Name)" />
+                            </div>
+                            <div class="mb-3 col-6">
+                                <label for="birthdateInput" class="form-label">Birthdate</label>
+                                <InputDate id="birthdateInput" class="form-control" @bind-Value="_newPerson.Birthdate" />
+                                <ValidationMessage For="@(() => _newPerson.Birthdate)" />
+                            </div>
+                            <div class="mb-3 col-6">
+                                <label for="shirtSizeInput" class="form-label">Shirt Size</label>
+                                <InputSelect id="shirtSizeInput" class="form-control" @bind-Value="_newPerson.ShirtSizeId">
+                                    <option value="">Select Size</option>
+                                    @if (_shirtSizes is not null)
+                                    {
+                                        foreach (var size in _shirtSizes)
+                                        {
+                                            <option value="@size.Key">@size.Value</option>
+                                        }
+                                    }
+                                </InputSelect>
+                                <ValidationMessage For="@(() => _newPerson.ShirtSizeId)" />
+                            </div>
+                            <div class="mb-3 col-6">
+                                <label for="favoriteFoodInput" class="form-label">Favorite Food</label>
+                                <InputText id="favoriteFoodInput" class="form-control" @bind-Value="_newPerson.FavoriteFood" />
+                                <ValidationMessage For="@(() => _newPerson.FavoriteFood)" />
+                            </div>
+                            <div class="mb-3 col-12">
+                                <label for="selfDescriptionInput" class="form-label">Describe Yourself (100 characters max)</label>
+                                <InputTextArea id="selfDescriptionInput" class="form-control" @bind-Value="_newPerson.SelfDescription" />
+                                <ValidationMessage For="@(() => _newPerson.SelfDescription)" />
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Person</button>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+    @if (_shirtSizes is not null)
+    {
+        <div class="row">
+            <div class="col-lg-9 col-sm-8 col-12 mt-3">
+                <span><b>Current People</b></span>
+            </div>
+            <div class="col-12">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Birthdate</th>
+                            <th>Shirt Size</th>
+                            <th>Favorite Food</th>
+                            <th>Self Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var person in _people)
+                        {
+                            <tr>
+                                <td>@person.Name</td>
+                                <td>@(((DateTime)person.Birthdate).ToString("MM/dd/yyyy"))</td>
+                                <td>@_shirtSizes.Single(x => x.Key == person.ShirtSizeId).Value</td>
+                                <td>@person.FavoriteFood</td>
+                                <td>@person.SelfDescription</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+</div>
