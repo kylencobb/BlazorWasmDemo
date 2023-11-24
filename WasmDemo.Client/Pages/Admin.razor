@@ -2,7 +2,7 @@
 
 <div class="container pt-3">
     <p class="d-inline-flex gap-1">
-        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#form-expand" aria-expanded="false" aria-controls="form-expand">
+        <button id="person-add-button" class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#form-expand" aria-expanded="false" aria-controls="form-expand">
             Add Person
         </button>
     </p>
@@ -20,17 +20,17 @@
 
                         <div class="row">
                             <div class="mb-3 col-6">
-                                <label for="nameInput" class="form-label">Name</label>
+                                <label for="nameInput" class="form-label">Name</label><span class="text-danger">*</span>
                                 <InputText id="nameInput" class="form-control" @bind-Value="_newPerson.Name" />
                                 <ValidationMessage For="@(() => _newPerson.Name)" />
                             </div>
                             <div class="mb-3 col-6">
-                                <label for="birthdateInput" class="form-label">Birthdate</label>
+                                <label for="birthdateInput" class="form-label">Birthdate</label><span class="text-danger">*</span>
                                 <InputDate id="birthdateInput" class="form-control" @bind-Value="_newPerson.Birthdate" />
                                 <ValidationMessage For="@(() => _newPerson.Birthdate)" />
                             </div>
                             <div class="mb-3 col-6">
-                                <label for="shirtSizeInput" class="form-label">Shirt Size</label>
+                                <label for="shirtSizeInput" class="form-label">Shirt Size</label><span class="text-danger">*</span>
                                 <InputSelect id="shirtSizeInput" class="form-control" @bind-Value="_newPerson.ShirtSizeId">
                                     <option value="">Select Size</option>
                                     @if (_shirtSizes is not null)
@@ -49,7 +49,7 @@
                                 <ValidationMessage For="@(() => _newPerson.FavoriteFood)" />
                             </div>
                             <div class="mb-3 col-12">
-                                <label for="selfDescriptionInput" class="form-label">Describe Yourself (100 characters max)</label>
+                                <label for="selfDescriptionInput" class="form-label">Describe Yourself (100 characters max)</label><span class="text-danger">*</span>
                                 <InputTextArea id="selfDescriptionInput" class="form-control" @bind-Value="_newPerson.SelfDescription" />
                                 <ValidationMessage For="@(() => _newPerson.SelfDescription)" />
                             </div>
@@ -94,3 +94,5 @@
         </div>
     }
 </div>
+
+<Modal Title="Person Added!" Body="Person successfully added to the list of people." />

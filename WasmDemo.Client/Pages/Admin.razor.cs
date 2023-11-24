@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System.Net.Http.Json;
 using WasmDemo.Shared;
 
@@ -7,6 +8,7 @@ namespace WasmDemo.Client.Pages
     public partial class Admin
     {
         [Inject] HttpClient? HttpClient { get; set; }
+        [Inject] IJSRuntime JS { get; set; }
         
         private PersonModel _newPerson = new PersonModel();
         private List<PersonModel> _people = new List<PersonModel>();
@@ -14,28 +16,16 @@ namespace WasmDemo.Client.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            this.GetPeople();
-            this.GetShirtSizes();
-
-            await base.OnInitializedAsync();
+            _shirtSizes = await HttpClient!.GetFromJsonAsync<List<KeyValuePair<int, string>>>("api/admin/get-shirt-sizes");
+            _people = await HttpClient!.GetFromJsonAsync<List<PersonModel>>("api/admin/get-people");
         }
 
-        private void HandleSubmit()
+        private async void HandleSubmit()
         {
             _people.Add(_newPerson);
-        }
+            _newPerson = new PersonModel();
 
-        private void GetPeople()
-        {
-            _people.Add(new PersonModel { Name = "Jim Stevens", Birthdate = DateTime.Now.AddYears(-34), FavoriteFood = "Quiche Lorraine", ShirtSizeId = 3, SelfDescription = "I like to eat quiche and make croissants." });
-            _people.Add(new PersonModel { Name = "Heather Smith", Birthdate = DateTime.Now.AddYears(-47), FavoriteFood = "Beef Rendang", ShirtSizeId = 2, SelfDescription = "I travel to the Far East for my Rendang." });
-            _people.Add(new PersonModel { Name = "Beth Connel", Birthdate = DateTime.Now.AddYears(-22), FavoriteFood = "Chipotle", ShirtSizeId = 4, SelfDescription = "I play the clarinet and run marathons in my free time." });
-        }
-
-        private async void GetShirtSizes()
-        {
-            _shirtSizes = await HttpClient!.GetFromJsonAsync<List<KeyValuePair<int, string>>>("api/admin/shirt-sizes");
-            StateHasChanged();
+            await JS.InvokeVoidAsync("collapseCard", "person-add-button");
         }
     }
 }

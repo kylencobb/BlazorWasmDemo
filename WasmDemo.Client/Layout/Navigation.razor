@@ -9,15 +9,13 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item text-white">
-                    <NavLink class="nav-link text-white" href="">Home</NavLink>
-                </li>
+                
                 <AuthorizeView>
                     <Authorized>
                         @if (AuthenticationState.Result.User.IsInRole("Administrator"))
                         {
                             <li class="nav-item">
-                                <NavLink class="nav-link text-white" href="admin">Admin Page</NavLink>
+                                <NavLink class="nav-link text-white" href="admin">Admin Manage People</NavLink>
                             </li>
                         }
                     </Authorized>
