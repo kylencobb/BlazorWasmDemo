@@ -9,8 +9,6 @@ namespace WasmDemo.Shared
     public class LoginResult
     {
         public bool IsSuccess { get; set; } = false;
-        public string? Error {  get; set; }
         public string? Token { get; set; }
-        public string ReturnPage { get; set; } = string.Empty;
     }
 }

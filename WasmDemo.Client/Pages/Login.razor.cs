@@ -21,9 +21,16 @@ namespace WasmDemo.Client.Pages
                 _loginModel.ReturnPage = _returnPage;
             }
 
-            var result = await AuthenticationService.Login(_loginModel);
+            try
+            {
+                var result = await AuthenticationService.Login(_loginModel);
 
-            NavigationManager.NavigateTo("");
+                NavigationManager.NavigateTo($"{_loginModel.ReturnPage}");
+            }
+            catch (Exception ex)
+            {
+                //handle
+            }
         }
     }
 }

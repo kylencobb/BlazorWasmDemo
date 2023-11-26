@@ -48,13 +48,12 @@ namespace WasmDemo.Api.Controllers
                 return new LoginResult
                 {
                     IsSuccess = true,
-                    Token = new JwtSecurityTokenHandler().WriteToken(token),
-                    ReturnPage = loginModel.ReturnPage
+                    Token = new JwtSecurityTokenHandler().WriteToken(token)
                 };
             }
             catch (Exception ex)
             {
-                //handle/log
+                //log/handle
                 return new LoginResult { IsSuccess = false };
             }
         } 

@@ -11,13 +11,20 @@ namespace WasmDemo.Client.Pages
         [Inject] IJSRuntime JS { get; set; }
         
         private PersonModel _newPerson = new PersonModel();
-        private List<PersonModel> _people = new List<PersonModel>();
-        private List<KeyValuePair<int, string>> _shirtSizes;
+        private List<PersonModel>? _people = new List<PersonModel>();
+        private List<KeyValuePair<int, string>>? _shirtSizes;
 
         protected override async Task OnInitializedAsync()
         {
-            _shirtSizes = await HttpClient!.GetFromJsonAsync<List<KeyValuePair<int, string>>>("api/admin/get-shirt-sizes");
-            _people = await HttpClient!.GetFromJsonAsync<List<PersonModel>>("api/admin/get-people");
+            try
+            {
+                _shirtSizes = await HttpClient!.GetFromJsonAsync<List<KeyValuePair<int, string>>>("api/admin/get-shirt-sizes");
+                _people = await HttpClient!.GetFromJsonAsync<List<PersonModel>>("api/admin/get-people");
+            }
+            catch (Exception ex)
+            {
+                //handle
+            }
         }
 
         private async void HandleSubmit()
