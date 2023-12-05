@@ -1,5 +1,5 @@
 # Blazor Wasm Demo
-This project was created in a few hours during Thanksgiving to demonstrate proficiency in Blazor WebAssembly. This is not intended to be a robust demonstration. I am excited by the prospect of working with Blazor.
+This project was created in a few hours during Thanksgiving to demonstrate proficiency in Blazor WebAssembly. This is not intended to be a robust demonstration. I am excited to be working with Blazor.
 
 ## Local Setup
 To run this application locally, use Multiple Startup Projects in Visual Studio (starting both the Api and Client projects).
