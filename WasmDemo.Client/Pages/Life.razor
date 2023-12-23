@@ -1,0 +1,44 @@
+﻿@page "/life"
+
+<PageTitle>Life</PageTitle>
+
+<style>
+    body {
+        background-color: #343a40;
+    }
+    .cell {
+        width: 1%;
+        height: 15px;
+        border: 1px solid #ced4da;
+        float: left;
+    }
+    .fill {
+        background-color: #ced4da;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row text-center py-3">
+        <div class="col-12 text-white fw-bold mb-2">
+            Select cells in a grid to set the initial population.
+        </div>
+        <div class="col-12">
+            <label class="mr-2 text-white fw-bold">Population: @_population</label>
+            <label class="mr-2 text-white fw-bold">Cycle: @_iteration</label>
+            <button class="btn btn-success" @onclick="Play" disabled="@(_isPlaying)">Play</button>
+            <button class="btn btn-danger" @onclick="() => _isPlaying = false">Stop</button>
+            <button class="btn btn-secondary" @onclick="OnInitializedAsync">Reset</button>
+        </div>
+    </div>
+    @for (int i = 0; i < _cells.GetLength(0); i++)
+    {
+        for (int j = 0; j < _cells.GetLength(1); j++)
+        {
+            string fill = _cells[i, j] ? "fill" : "";
+            int rowIndex = i;
+            int columnIndex = j;
+
+            <div class="@($"cell {fill}")" @onclick="() => Flip(rowIndex, columnIndex, false)" data-row-index="@i" data-column-index="@j"></div>
+        }
+    }
+</div>
