@@ -3,9 +3,9 @@
 <PageTitle>Life</PageTitle>
 
 <style>
-    body {
+    /* body {
         background-color: #343a40;
-    }
+    } */
     .cell {
         width: 1%;
         height: 15px;
@@ -18,16 +18,26 @@
 </style>
 
 <div class="container-fluid">
-    <div class="row text-center py-3">
-        <div class="col-12 text-white fw-bold mb-2">
-            Select cells in a grid to set the initial population.
+    <div class="row py-3 align-items-center fs-5">
+        <div class="col-12 text-white mb-2">
+            Select grid cells to set the initial population or select a template.
         </div>
-        <div class="col-12">
-            <label class="mr-2 text-white fw-bold">Population: @_population</label>
-            <label class="mr-2 text-white fw-bold">Cycle: @_iteration</label>
-            <button class="btn btn-success" @onclick="Play" disabled="@(_isPlaying)">Play</button>
-            <button class="btn btn-danger" @onclick="() => _isPlaying = false">Stop</button>
-            <button class="btn btn-secondary" @onclick="OnInitializedAsync">Reset</button>
+        <div class="col-auto">
+            <select class="form-select mr-2" @onchange="TemplateChanged">
+                <option value="">Templates</option>
+                <option value="Gosper Glider">Gosper Glider</option>
+            </select>
+        </div>
+        <div class="col-auto" style="cursor: pointer">
+            <span @onclick="Play" class="d-inline-block pr-2 fs-3"><i class="@($"bi {_playIconClass}")"></i></span>
+            <span @onclick="() => _isPlaying = false" class="d-inline-block pr-2 fs-3"><i class="@($"bi {_stopIconClass}")"></i></span>
+            <span @onclick="OnInitializedAsync" class="d-inline-block pr-2 fs-3"><i class="bi bi-arrow-left text-white"></i></span>
+        </div>
+        <div class="col-auto fs-6">
+            <label class="mr-2 text-white form-text">Population: @_population</label>
+        </div>
+        <div class="col-auto fs-6">
+            <label class="mr-2 text-white form-text">Cycle: @_iteration</label>
         </div>
     </div>
     @for (int i = 0; i < _cells.GetLength(0); i++)

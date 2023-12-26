@@ -6,62 +6,57 @@
             <p>You are not authorized to view this page. Please <NavLink href="login?returnPage=admin">login</NavLink>.</p>
         </NotAuthorized>
         <Authorized>
-            <p class="d-inline-flex gap-1">
-                <button id="person-add-button" class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#form-expand" aria-expanded="false" aria-controls="form-expand">
-                    Add Person
-                </button>
-            </p>
-            <div class="collapse" id="form-expand">
-                <div class="card">
-                    <div class="card-header bg-primary text-white">
-                        <h2 class="fs-3">New Person</h2>
-                    </div>
-                    <div class="card-body">
-                        <EditForm Model="_newPerson" OnValidSubmit="HandleSubmit">
-                            <div class="container-fluid">
+            <div class="card rounded-0">
+                <div class="card-header text-white rounded-0" style="background-color: #3585cc">
+                    <h2 id="btn-person-add-open" class="fs-4 mb-0" @onclick="(() => _addPersonOpen = !_addPersonOpen)" data-bs-toggle="collapse" data-bs-target="#form-expand" aria-controls="form-expand" style="cursor: pointer">
+                        New Person <i class="@($"fs-6 bi {(!_addPersonOpen ? "bi-plus-circle" : "bi-dash-circle")}")"></i>
+                    </h2>
+                </div>
+                <div id="form-expand" class="collapse card-body">
+                    <EditForm Model="_newPerson" OnValidSubmit="HandleSubmit">
+                        <div class="container-fluid">
 
-                                <DataAnnotationsValidator />
+                            <DataAnnotationsValidator />
 
-                                <div class="row">
-                                    <div class="mb-3 col-6">
-                                        <label for="nameInput" class="form-label">Name</label><span class="text-danger">*</span>
-                                        <InputText id="nameInput" class="form-control" @bind-Value="_newPerson.Name" />
-                                        <ValidationMessage For="@(() => _newPerson.Name)" />
-                                    </div>
-                                    <div class="mb-3 col-6">
-                                        <label for="birthdateInput" class="form-label">Birthdate</label><span class="text-danger">*</span>
-                                        <InputDate id="birthdateInput" class="form-control" @bind-Value="_newPerson.Birthdate" />
-                                        <ValidationMessage For="@(() => _newPerson.Birthdate)" />
-                                    </div>
-                                    <div class="mb-3 col-6">
-                                        <label for="shirtSizeInput" class="form-label">Shirt Size</label><span class="text-danger">*</span>
-                                        <InputSelect id="shirtSizeInput" class="form-select" @bind-Value="_newPerson.ShirtSizeId">
-                                            <option value="">Select Size</option>
-                                            @if (_shirtSizes is not null)
-                                            {
-                                                foreach (var size in _shirtSizes)
-                                                {
-                                                    <option value="@size.Key">@size.Value</option>
-                                                }
-                                            }
-                                        </InputSelect>
-                                        <ValidationMessage For="@(() => _newPerson.ShirtSizeId)" />
-                                    </div>
-                                    <div class="mb-3 col-6">
-                                        <label for="favoriteFoodInput" class="form-label">Favorite Food</label>
-                                        <InputText id="favoriteFoodInput" class="form-control" @bind-Value="_newPerson.FavoriteFood" />
-                                        <ValidationMessage For="@(() => _newPerson.FavoriteFood)" />
-                                    </div>
-                                    <div class="mb-3 col-12">
-                                        <label for="selfDescriptionInput" class="form-label">Describe Yourself (100 characters max)</label><span class="text-danger">*</span>
-                                        <InputTextArea id="selfDescriptionInput" class="form-control" @bind-Value="_newPerson.SelfDescription" />
-                                        <ValidationMessage For="@(() => _newPerson.SelfDescription)" />
-                                    </div>
+                            <div class="row">
+                                <div class="mb-3 col-6">
+                                    <label for="nameInput" class="form-label">Name</label><span class="text-danger">*</span>
+                                    <InputText id="nameInput" class="form-control" @bind-Value="_newPerson.Name" />
+                                    <ValidationMessage For="@(() => _newPerson.Name)" />
                                 </div>
-                                <button type="submit" class="btn btn-primary">Save Person</button>
+                                <div class="mb-3 col-6">
+                                    <label for="birthdateInput" class="form-label">Birthdate</label><span class="text-danger">*</span>
+                                    <InputDate id="birthdateInput" class="form-control" @bind-Value="_newPerson.Birthdate" />
+                                    <ValidationMessage For="@(() => _newPerson.Birthdate)" />
+                                </div>
+                                <div class="mb-3 col-6">
+                                    <label for="shirtSizeInput" class="form-label">Shirt Size</label><span class="text-danger">*</span>
+                                    <InputSelect id="shirtSizeInput" class="form-select" @bind-Value="_newPerson.ShirtSizeId">
+                                        <option value="">Select Size</option>
+                                        @if (_shirtSizes is not null)
+                                        {
+                                            foreach (var size in _shirtSizes)
+                                            {
+                                                <option value="@size.Key">@size.Value</option>
+                                            }
+                                        }
+                                    </InputSelect>
+                                    <ValidationMessage For="@(() => _newPerson.ShirtSizeId)" />
+                                </div>
+                                <div class="mb-3 col-6">
+                                    <label for="favoriteFoodInput" class="form-label">Favorite Food</label>
+                                    <InputText id="favoriteFoodInput" class="form-control" @bind-Value="_newPerson.FavoriteFood" />
+                                    <ValidationMessage For="@(() => _newPerson.FavoriteFood)" />
+                                </div>
+                                <div class="mb-3 col-12">
+                                    <label for="selfDescriptionInput" class="form-label">Describe Yourself (100 characters max)</label><span class="text-danger">*</span>
+                                    <InputTextArea id="selfDescriptionInput" class="form-control" @bind-Value="_newPerson.SelfDescription" />
+                                    <ValidationMessage For="@(() => _newPerson.SelfDescription)" />
+                                </div>
                             </div>
-                        </EditForm>
-                    </div>
+                            <button type="submit" class="btn btn-secondary">Save Person</button>
+                        </div>
+                    </EditForm>
                 </div>
             </div>
             <div class="row">

@@ -9,7 +9,8 @@ namespace WasmDemo.Client.Pages
     {
         [Inject] HttpClient? HttpClient { get; set; }
         [Inject] IJSRuntime JS { get; set; }
-        
+
+        private bool _addPersonOpen = false;
         private PersonModel _newPerson = new PersonModel();
         private List<PersonModel>? _people = new List<PersonModel>();
         private List<KeyValuePair<int, string>>? _shirtSizes;
@@ -32,7 +33,7 @@ namespace WasmDemo.Client.Pages
             _people.Add(_newPerson);
             _newPerson = new PersonModel();
 
-            await JS.InvokeVoidAsync("collapseCard", "person-add-button");
+            await JS.InvokeVoidAsync("collapseCard", "btn-person-add-open");
         }
     }
 }
