@@ -25,7 +25,10 @@
         <div class="col-auto">
             <select class="form-select mr-2" @onchange="TemplateChanged">
                 <option value="">Templates</option>
-                <option value="Gosper Glider">Gosper Glider</option>
+                @foreach (string template in _presetGrids)
+                {
+                    <option value="@template">@template</option>
+                }
             </select>
         </div>
         <div class="col-auto" style="cursor: pointer">
@@ -48,7 +51,7 @@
             int rowIndex = i;
             int columnIndex = j;
 
-            <div class="@($"cell {fill}")" @onclick="() => Flip(rowIndex, columnIndex, false)" data-row-index="@i" data-column-index="@j"></div>
+            <div class="@($"cell {fill}")" @onclick="() => Flip(rowIndex, columnIndex)" data-row-index="@i" data-column-index="@j"></div>
         }
     }
 </div>
