@@ -1,7 +1,7 @@
 # Blazor Wasm Demo
 
 ## Local Setup
-To run this application locally, choose the set the WasmDemo.Api as the startup project and run using the https debug profile.
+To run this application locally, set WasmDemo.Api as the startup project and run using the https debug profile.
 
 ## Authentication
 You can login using any credentials. The Api provisions a Json Web Token with an 'Administrator' role which can be used to view a protected table on the homepage, an Admin page which allows you to manage a list of people, and a page on which you can play [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life).
